@@ -18,7 +18,7 @@
     (should= 3 (euler-1 4))
     (should= 8 (euler-1 6))
     (should= 33 (euler-1 11))
-    ;(should= -1 (euler-1 1000))
+    (should= 233168 (euler-1 1000))
     )
   )
 
