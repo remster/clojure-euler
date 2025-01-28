@@ -10,6 +10,7 @@
   (it "Solves #3"
     (should= 7 (euler-3 7))
     (should= 29 (euler-3 13195))
+    (should= 6857 (euler-3 600851475143))
     )
   )
 

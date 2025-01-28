@@ -11,7 +11,7 @@
         (cons (first s) nil)
         (cons (first s) (take-until pred (rest s)))))))
 
-(defn divisible [o divisors]
+(defn divisible? [o divisors]
   (if (= o 0)
     false
     (=
@@ -34,7 +34,7 @@
     (last
       (take-until
         (fn [n]
-          (divisible n divisors))
+          (divisible? n divisors))
         (iterate (fn [x] (+ x 210)) 0))
       )
     )

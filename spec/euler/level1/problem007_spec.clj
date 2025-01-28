@@ -7,16 +7,22 @@
 
 (describe "Euler Problem #7"
 
-  (it "Solves #7"
-    (should= true (is-prime 1))
-    (should= true (is-prime 2))
-    (should= true (is-prime 3))
-    (should= false (is-prime 4))
-    (should= false (is-prime 6))
-    (should= false (is-prime 9))
+  (it "prime"
+    (should= true (prime? 1))
+    (should= true (prime? 2))
+    (should= true (prime? 3))
+    (should= false (prime? 4))
+    (should= false (prime? 6))
+    (should= false (prime? 9))
+    )
+
+  (it "next-prime"
     (should= 7 (next-prime 5))
     (should= 3 (next-prime 2))
     (should= 11 (next-prime 7))
+    )
+
+  (it "Solves #7"
     (should= 13 (euler-7 6))
     (should= 104743 (euler-7 10001))
     )

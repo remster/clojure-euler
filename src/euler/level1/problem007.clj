@@ -3,7 +3,7 @@
     [euler.level1.problem005 :refer :all])
   )
 
-(defn is-prime [n]
+(defn prime? [n]
   (let [divisors (range 2 n)]
     (empty?
       (filter
@@ -20,7 +20,7 @@
   (inc
     (or
       (last
-        (take-while (fn [n] (not (is-prime n)))
+        (take-while (fn [n] (not (prime? n)))
             (iterate inc (inc n)))
         )
         n
