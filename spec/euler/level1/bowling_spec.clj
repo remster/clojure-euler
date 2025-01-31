@@ -7,6 +7,13 @@
   (reduce (fn [cum _] (roll cum pins)) game (range iterations))
   )
 
+(defn roll-spare [game]
+  (-> game
+      (roll 5)
+      (roll 5)
+      )
+  )
+
 (describe "Bowling Game"
 
 
@@ -25,8 +32,7 @@
   (it "one spare"
     (let [game
           (-> (new-game)
-              (roll 5)
-              (roll 5)
+              (roll-spare)
               (roll 3)
               (roll-many 17 0)
               )]
