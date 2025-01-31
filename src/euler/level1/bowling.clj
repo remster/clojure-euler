@@ -1,14 +1,35 @@
 (ns euler.level1.bowling)
 
-(defn multiple-of-3-or-5? [n]
-  (or (zero? (mod n 3)) (zero? (mod n 5)))
-  )
 
-(defn euler-1 [n]
-  (->> (range n)
-       (filter multiple-of-3-or-5?)
-       (apply +)))
+(deftype Foo [a])
+(defrecord Bar [c])
 
-(defrecord Game [])
-(defmulti get-pins class)
-(defmethod get-pins Game [game] 7)
+(def f (Foo. 1))
+(.-a f)
+
+(def b (Bar. 1))
+(:c b)
+
+(defprotocol BowlingGame
+  (roll [pins]))
+
+(defrecord Game [frames]
+  BowlingGame
+  (roll [pins] (println "roll")))
+(deftype Frame [rolls])
+(deftype Roll [ball-1 ball-2])
+(defmulti score class)
+(defmethod score Game [game] 7)
+
+(defn BowlingGame [x y]
+  [(class x) (class y)])
+
+(def foo (fn []))
+(defn foo [])
+(def a 1)
+
+(defn roll [a b]
+  (println a b))
+
+(def roll [Long Long] [a b]
+  (println (+ a b)))

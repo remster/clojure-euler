@@ -6,9 +6,13 @@
 
 (describe "Bowling Game"
 
-  (it "finds multiples of 3 and 5"
-    (should= false (multiple-of-3-or-5? 1))
-    (should= 7 (get-pins (Game.)))
+  (it "Plays Game"
+    (let [game (Game.)
+          bowlingGame (BowlingGame 1 2)]
+      (should= 7 (score game))
+      (roll "bar" "baz")
+      (roll bowlingGame 8)
+      )
     )
   )
 
