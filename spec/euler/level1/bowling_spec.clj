@@ -22,17 +22,17 @@
       )
     )
 
-  ;(it "one spare"
-  ;  (let [game
-  ;        (-> (new-game)
-  ;            (roll 5)
-  ;            (roll 5)
-  ;            (roll 3)
-  ;            (roll-many 17 0)
-  ;            )]
-  ;    (should= 16 (score game))
-  ;    )
-  ;  )
+  (it "one spare"
+    (let [game
+          (-> (new-game)
+              (roll 5)
+              (roll 5)
+              (roll 3)
+              (roll-many 17 0)
+              )]
+      (should= 16 (score game))
+      )
+    )
 
   )
 

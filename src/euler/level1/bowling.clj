@@ -1,26 +1,33 @@
 (ns euler.level1.bowling)
 
-(defrecord Frame [score])
-
 (defrecord Game [frames current-roll])
 (defn new-game []
   (Game.
     (vec
       (map
-        (fn [_] (Frame. 0))
+        (fn [_] 0)
         (range 21)))
     0))
 
-(defn frame-score [frame] (:score frame)) ; little sad that there can't be typed based function overloading https://github.com/ertugrulcetin/overload-fn
+(defn iteration-score [frames i]
+  (let [consecutive-sum (+ (nth frames i) (nth frames (+ i 1)))]
+    (if (= consecutive-sum 10)
+      (+ 10 (nth frames (+ i 2)))
+      consecutive-sum
+      )
+    )
+  )
 (defn score [game]
-  (reduce + (map frame-score (:frames game))))
+  (reduce
+    +
+    (map (fn [i] (iteration-score (:frames game) (* 2 i))) (range 10))))
 
 (defn roll [game pins]
   (Game.
     (map-indexed
       (fn [i frame]
         (if (= (:current-roll game) i)
-          (Frame. (+ pins (:score frame)))
+          (+ pins frame)
           frame
           )) (:frames game)),
          (inc (:current-roll game)))
