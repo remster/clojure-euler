@@ -5,6 +5,10 @@
   (:import (euler.level1.bowling Game))
   (:import (euler.level1.bowling Frame)))
 
+(defn roll-many [game iterations pins]
+  (reduce (fn [cum _] (roll cum pins)) game (range iterations))
+  )
+
 (describe "Bowling Game"
 
   (it "The score function must iterate through all the frames, and calculate all their scores."
@@ -13,14 +17,14 @@
     )
 
   (it "rolls all zeroes"
-    (let [game (reduce (fn [cum _] (roll cum 0) (new-game)) (range 20))]
+    (let [game (roll-many (new-game) 20 0)]
       (should= 0 (score game))
       )
     )
 
   (it "rolls all ones"
-    (let [game (reduce (fn [cum _] (roll cum 1) (new-game)) (range 20))]
-      (should= 0 (score game))
+    (let [game (roll-many (new-game) 20 1)]
+      (should= 20 (score game))
       )
     )
 

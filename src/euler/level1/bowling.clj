@@ -9,5 +9,5 @@
 (defn score [game] (reduce + (map frame-score (:frames game))))
 
 (defn roll [game pins]
-  (conj (:frames game) (Frame. pins))
+  (Game. (conj (:frames game) (Frame. pins)))
   )
