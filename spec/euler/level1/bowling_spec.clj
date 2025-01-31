@@ -2,17 +2,14 @@
   (:use
     [speclj.core]
     [euler.level1.bowling])
-  (:import (euler.level1.bowling Game)))
+  (:import (euler.level1.bowling Game))
+  (:import (euler.level1.bowling Frame)))
 
 (describe "Bowling Game"
 
-  (it "Plays Game"
-    (let [game (Game.)
-          bowlingGame (BowlingGame 1 2)]
-      (should= 7 (score game))
-      (roll "bar" "baz")
-      (roll bowlingGame 8)
-      )
+  (it "Calculates Score"
+    (should= 0 (score (new-game)))
+    (should= 3 (score (Game. [(Frame. 1) (Frame. 2)])))
     )
   )
 
