@@ -1,34 +1,24 @@
 (ns euler.level1.bowling)
 
-(defrecord Game [frames current-roll])
-(defn new-game []
-  (Game.
-    (vec
-      (map
-        (fn [_] 0)
-        (range 21)))
-    0))
+(defn sum [nums]
+  (reduce + nums))
 
-(defn iteration-score [frames i]
-  (let [consecutive-sum (+ (nth frames i) (nth frames (+ i 1)))]
-    (if (= consecutive-sum 10)
-      (+ 10 (nth frames (+ i 2)))
-      consecutive-sum
-      )
-    )
-  )
-(defn score [game]
-  (reduce
-    +
-    (map (fn [i] (iteration-score (:frames game) (* 2 i))) (range 10))))
+(defn spare? [rolls]
+  (= (sum (take 2 rolls)) 10))
 
-(defn roll [game pins]
-  (Game.
-    (map-indexed
-      (fn [i frame]
-        (if (= (:current-roll game) i)
-          (+ pins frame)
-          frame
-          )) (:frames game)),
-         (inc (:current-roll game)))
-  )
+(defn strike? [rolls]
+  (= (first rolls) 10))
+
+(defn ->frames [rolls]
+  (if (empty? rolls)
+    []
+    (cons
+      (if (or (spare? rolls) (strike? rolls))
+        (take 3 rolls)
+        (take 2 rolls))
+      (lazy-seq (->frames (if (strike? rolls)
+                            (drop 1 rolls)
+                            (drop 2 rolls)))))))
+
+(defn score [rolls]
+  (sum (flatten (take 10 (->frames rolls)))))

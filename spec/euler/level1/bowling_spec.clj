@@ -3,43 +3,29 @@
     [speclj.core]
     [euler.level1.bowling]))
 
-(defn roll-many [game iterations pins]
-  (reduce (fn [cum _] (roll cum pins)) game (range iterations))
-  )
+(describe "Bowling Game "
 
-(defn roll-spare [game]
-  (-> game
-      (roll 5)
-      (roll 5)
-      )
-  )
+  (it "gutter game - no pins scores 0"
+    (should= 0 (score (repeat 0))))
 
-(describe "Bowling Game"
+  (it "all 1s - score is sum of pins"
+    (should= 20 (score (repeat 1))))
 
+  (it "spare adds the next roll"
+    (should= 16 (score [4 6 3])))
 
-  (it "rolls all zeroes"
-    (let [game (roll-many (new-game) 20 0)]
-      (should= 0 (score game))
-      )
-    )
+  (it "strike add next two rolls"
+    (should= 16 (score [10 1 2])))
 
-  (it "rolls all ones"
-    (let [game (roll-many (new-game) 20 1)]
-      (should= 20 (score game))
-      )
-    )
+  (it "perfect game - all strikes"
+    (should= 300 (score (repeat 10))))
 
-  (it "one spare"
-    (let [game
-          (-> (new-game)
-              (roll-spare)
-              (roll 3)
-              (roll-many 17 0)
-              )]
-      (should= 16 (score game))
-      )
-    )
-
+  (it "->frames"
+    (should= [] (->frames []))
+    (should= [[1]] (->frames [1]))
+    (should= [[1 2][3 4]] (->frames [1 2 3 4]))
+    (should= [[4 6 3][3]] (->frames [4 6 3]))
+    (should= [[10 1 2][1 2]] (->frames [10 1 2])))
   )
 
 (run-specs)
